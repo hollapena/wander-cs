@@ -1,24 +1,30 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 function Welcome() {
   return (
     <div id="welcome-screen">
-      {/* <img
+      <img
         id="suitcase"
         src="https://i.pinimg.com/originals/4c/b0/3e/4cb03e76f409d854eeda76a7b840f23a.gif"
         alt="swinging suitcase"
-      ></img> this option requires align items start and display flex row in the css file*/}
+      ></img>
+      {/* ^^ this option requires align items start and display flex row in the css file */}
       <div id="welcomeitems">
-        <h1>Welcome</h1>
+        <h1>Wander</h1>
         <hr id="welcomeline"></hr>
         <br></br>
-        <button>Log In</button>
+        <Link to="login">
+          <button class="home-button">Log In</button>
+        </Link>
         <br></br>
         <br></br>
-        <button>Sign Up</button>
+        <Link to="signup">
+          <button class="home-button">Sign Up</button>
+        </Link>
         <br></br>
         <br></br>
-        <button>Practice List</button>
+        <button class="home-button">Practice List</button>
       </div>
     </div>
   );
