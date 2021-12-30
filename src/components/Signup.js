@@ -1,12 +1,44 @@
-import React from 'react';
-import {useState} from 'react';
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
 
 function Signup() {
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [firstName, setfirstName] = useState("");
+  const [lastName, setlastName] = useState("");
 
-  const [userEmail, setUserEmail] = useState('');
-  const [userPass, setUserPass] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  function newUser() {
+    axios
+      .post("http://localhost:3456/api/user", {
+        user_email: email,
+        user_password: pass,
+        first_name: firstName,
+        last_name: lastName,
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
+  }
+
+  function handlePassChange(e) {
+    setPass(e.target.value);
+  }
+
+  function handleFirstChange(e) {
+    setfirstName(e.target.value);
+  }
+
+  function handleLastChange(e) {
+    setlastName(e.target.value);
+  }
 
   return (
     <div id="signupscreen">
@@ -14,27 +46,52 @@ function Signup() {
       <h2 id="tagline">Create an Account to Plan your next Adventure!</h2>
       <form id="acctCreationForm">
         <label>E-mail</label>
-        <input type="email" name="email" />
+        <input
+          onChange={handleEmailChange}
+          value={email}
+          type="email"
+          name="email"
+        />
 
         <br></br>
         <label>Password</label>
-        <input type="password" name="password" />
+        <input
+          onChange={handlePassChange}
+          value={pass}
+          type="password"
+          name="password"
+        />
 
         <br></br>
         <label>First Name</label>
-        <input type="text" name="firstname" />
+        <input
+          onChange={handleFirstChange}
+          value={firstName}
+          type="text"
+          name="firstname"
+        />
 
         <br></br>
         <label>Last Name</label>
-        <input type="text" name="lastname" />
+        <input
+          onChange={handleLastChange}
+          value={lastName}
+          type="text"
+          name="lastname"
+        />
 
         <br></br>
         <span id="welcomesubmit">
-          <input class="button" type="submit" name="signin" />
+          <input
+            onClick={newUser}
+            className="button"
+            type="submit"
+            name="signin"
+          />
         </span>
       </form>
     </div>
   );
 }
 
-export default Signup
+export default Signup;

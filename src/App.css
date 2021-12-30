@@ -135,6 +135,15 @@ button:hover{
   background-color:#568c8b;
 }
 
+#footer {
+  height: 10vh;
+}
+
+#header {
+  height: 10vh;
+  align-self:start;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
