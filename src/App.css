@@ -2,108 +2,122 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#welcome-screen {
+  background-color: #fdbe31;
+  /* background-image: url("https://media1.giphy.com/media/xTiN0A1yDc84UV9WZa/giphy.gif"); This version requires align items center and display flex*/
+  color: white;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-areas:
+    "suitcase"
+    "welcome"
+    "welcome"
+    "welcome";
+  justify-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+#suitcase {
+  grid-area: suitcase;
+  max-height: 50vh;
+  max-width: 100vw;
+  object-fit: fill;
+  border-radius: 50%;
+  margin-bottom: -10px;
+}
+
+#welcomeitems {
+  grid-area: welcome;
+  background-color: #fdbe31;
+  z-index: 2;
+  border: none;
+}
+
+#welcomeline {
+  width: 80vw;
+}
+
+#acctCreationForm {
+  grid-area: form;
+  display: grid;
+  width: 80vw;
+}
+
+#loginpage {
+  display: grid;
+  grid-template-areas:
+    "welcome welcome welcome"
+    "tagline tagline tagline"
+    ". form .";
+  align-content: center;
+}
+#loginwelcome {
+  grid-area: welcome;
+  animation-duration: 3s;
+  animation-name: slideinfromtop;
+}
+
+@keyframes slideinfromtop {
+  from {
+    margin-bottom: 100%;
+  }
+  to {
+    margin-bottom: 8%;
+  }
+}
+#logintagline {
+  grid-area: tagline;
+  animation-duration: 3s;
+  animation-name: slideinfromtop;
+}
+#loginform {
+  grid-area: form;
+  display: grid;
+  width: 80vw;
+  text-align: center;
+}
+
+input {
+  animation-duration: 3s;
+  animation-name: slideinfromleft;
+}
+
+@keyframes slideinfromleft {
+  from {
+    margin-right: 100%;
+  }
+  to {
+    margin-right: 0%;
   }
 }
 
-#welcome-screen{
-  background-color: #fdbe31;
-  /* background-image: url("https://media1.giphy.com/media/xTiN0A1yDc84UV9WZa/giphy.gif"); This version requires align items center and display flex*/
-  color:white;
-  background-size:cover; 
-  height:100vh;
-  width:100vw;
+#welcomesubmit {
+  align-self: center;
+}
+
+label {
+  text-align: left;
+}
+
+#signupscreen {
   display: grid;
   grid-template-areas:
-  "suitcase"
-  "welcome"
-  "welcome"
-  "welcome";
-  justify-content:center;
+    "welcome welcome welcome"
+    "tagline tagline tagline"
+    ". form .";
+  align-content: center;
 }
 
-#suitcase{
-  grid-area:suitcase;
-  max-height:50vh;
-  max-width:100vw;
-  object-fit:fill;
-  border-radius:50%;
-  margin-bottom:-10px;
-
+#welcome {
+  grid-area: welcome;
 }
 
-#welcomeitems{
-  grid-area:welcome;
-  background-color: #fdbe31;
-  z-index:2;
-  border:none;
+#tagline {
+  grid-area: tagline;
 }
 
-#welcomeline{
-  width:80vw;
-} 
-
-#acctCreationForm{
-  grid-area:form;
-  display:grid;
-  width: 80vw;
-  
-}
-
-#loginpage{
-  display:grid;
-  grid-template-areas: 
-  "welcome welcome welcome"
-  "tagline tagline tagline"
-  ". form .";
-  align-content:center;
-}
-#loginwelcome{
-  grid-area:welcome;
-}
-#logintagline{
-  grid-area:tagline;
-}
-#loginform{
-  grid-area:form;
-  display:grid;
-  width: 80vw;
-  text-align:center;
-}
-
-#welcomesubmit{
-  align-self:center;
-}
-
-label{
-  text-align:left;
-}
-
-#signupscreen{
-  display:grid;
-  grid-template-areas: 
-  "welcome welcome welcome"
-  "tagline tagline tagline"
-  ". form .";
-  align-content:center;
-}
-
-#welcome{
-  grid-area:welcome;
-}
-
-#tagline{
-  grid-area:tagline;
-}
-
-.App{
+.App {
   /* background-color: #7ec4dd; */
   min-height: 100vh;
   display: flex;
@@ -113,35 +127,104 @@ label{
   font-size: calc(10px + 2vmin);
   color: black;
 }
-
+#usermain {
+  display: grid;
+  min-height: 100vh;
+  width: 100vw;
+  max-height: fit-content;
+  grid-template-areas:
+    "header"
+    "body"
+    "footer";
+}
+#header {
+  grid-area: header;
+  background-color: #e6b574;
+  width: 100vw;
+  height: 5vh;
+  position: fixed;
+  box-shadow: 0px 4px 8px gray;
+  display: grid;
+  grid-template-areas: "home . . . . logout";
+  align-items: center;
+}
+#homebtn {
+  grid-area: home;
+  margin-top: 0.25vh;
+}
+#logoutbtn {
+  grid-area: logout;
+  box-shadow: 2px 2px 4px gray;
+}
+#footer {
+  grid-area: footer;
+  background-color: #e6b574;
+  width: 100vw;
+  height: 5vh;
+  box-shadow: 0px -4px 8px gray;
+}
+.body {
+  grid-area: body;
+}
 .button {
-  background-color:#88c6c5;
+  background-color: #88c6c5;
   color: black;
-  height:4vh;
-  width: 30vw;
+  height: 3.5vh;
+  width: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
   border-radius: 5px;
-  border:none;
+  border: none;
+  box-shadow: 5px 5px 8px gray;
+  margin: 10px;
+  animation-duration: 3s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+  }
+  to {
+    margin-left: 0%;
+  }
+}
+.buttontwo {
+  background-color: #88c6c5;
+  color: black;
+  height: 3.5vh;
+  width: fit-content;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 8px gray;
+  margin: 10px;
+  animation-duration: 3s;
+  animation-name: slidein;
+  animation-delay: 0.25s;
+}
+
+.navbutton {
+  background-color: #88c6c5;
+  color: black;
+  height: 3.5vh;
+  width: fit-content;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 5px 5px 8px gray;
 }
 
 .home-button {
-  background-color:white;
+  background-color: white;
   color: black;
-  height:4vh;
+  height: 4vh;
   width: 30vw;
   border-radius: 5px;
-  border:none;
+  border: none;
 }
-button:hover{
-  background-color:#568c8b;
-}
-
-#footer {
-  height: 10vh;
-}
-
-#header {
-  height: 10vh;
-  align-self:start;
+button:hover {
+  background-color: #568c8b;
 }
 
 @keyframes App-logo-spin {
@@ -152,5 +235,3 @@ button:hover{
     transform: rotate(360deg);
   }
 }
-
-

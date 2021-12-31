@@ -7,7 +7,7 @@ import {Routes, Route} from 'react-router-dom';
 
 function Trip() {
   return (
-    <div>
+    <div className="body">
       <h1>This will display a Trip</h1>
     </div>
   );

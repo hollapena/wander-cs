@@ -7,15 +7,16 @@ import Trip from "./Trip";
 import Trips from "./Trips";
 import List from "./List";
 import CreateList from "./CreateList";
+import CreateTrip from "./CreateTrip";
 import Weather from "./Weather";
 import Map from "./Map";
 
 function User(props) {
   return (
-    <div>
-      <Header />
+    <div id="usermain">
+      <Header userLogout={props.userLogout} />
 
-      <Routes>
+      <Routes id="body">
         <Route
           path="/"
           element={
@@ -26,13 +27,26 @@ function User(props) {
               userId={props.userId}
               userPass={props.userPass}
               authenticated={props.authenticated}
-             />
+            />
           }
         />
         <Route path="trip" element={<Trip />} />
         <Route path="trips" element={<Trips />} />
         <Route path="list" element={<List />} />
         <Route path="newlist" element={<CreateList />} />
+        <Route
+          path="newtrip"
+          element={
+            <CreateTrip
+              userFirst={props.userFirst}
+              userLast={props.userLast}
+              userEmail={props.userEmail}
+              userId={props.userId}
+              userPass={props.userPass}
+              authenticated={props.authenticated}
+             />
+          }
+        />
         <Route path="weather" element={<Weather />} />
         <Route path="map" element={<Map />} />
       </Routes>

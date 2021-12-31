@@ -15,16 +15,16 @@ function Welcome() {
         <hr id="welcomeline"></hr>
         <br></br>
         <Link to="login">
-          <button className="home-button">Log In</button>
+          <button className="button">Log In</button>
         </Link>
         <br></br>
         <br></br>
         <Link to="signup">
-          <button className="home-button">Sign Up</button>
+          <button className="buttontwo">Sign Up</button>
         </Link>
+        {/* <br></br>
         <br></br>
-        <br></br>
-        <button className="home-button">Practice List</button>
+        <button className="button">Practice List</button> */}
       </div>
     </div>
   );

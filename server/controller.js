@@ -29,12 +29,32 @@ module.exports = {
   },
   editUser: (req, res) => {},
   removeUser: (req, res) => {},
-  addTrip: (req, res) => {},
+  addTrip: (req, res) => {
+    const { trip_start, trip_end, trip_name, destination_zip} = req.body;
+    sequelize
+      .query(
+        `INSERT INTO trips (trip_start, trip_end, trip_name, destination_zip) VALUES ('${trip_start}', '${trip_end}', '${trip_name}', '${destination_zip}');`
+      )
+      .then(dbRes => 
+        res.status(200).send(dbRes))
+      .catch(err => console.log(err));
+      },
+  addUsersTrips: (req,res) => {
+    const { trip_id, user_id } = req.body;
+    sequelize
+      .query(
+        `INSERT INTO trips (trip_start, trip_end, trip_name, destination_zip) VALUES ('${trip_start}', '${trip_end}', '${trip_name}', '${destination_zip}');`
+      )
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
+  },
   getTrip: (req, res) => {},
   editTrip: (req, res) => {},
   removeTrip: (req, res) => {},
   addList: (req, res) => {},
   getList: (req, res) => {},
+  editList: (req, res) => {},
+  removeList: (req, res) => {},
   addToList: (req, res) => {},
   removeFromList: (req, res) => {},
 };

@@ -14,15 +14,17 @@ app.post('/api/user', ctrl.addUser);
 app.patch('/api/user', ctrl.editUser);
 app.delete('/api/user', ctrl.removeUser);
 
-app.get("/api/trip", ctrl.getUser);
-app.post("/api/trip", ctrl.addUser);
-app.patch("/api/trip", ctrl.editUser);
-app.delete("/api/trip", ctrl.removeUser);
+app.post('/api/usertrips', ctrl.addUsersTrips);
 
-app.get("/api/list", ctrl.getUser);
-app.post("/api/list", ctrl.addUser);
-app.patch("/api/list", ctrl.editUser);
-app.delete("/api/list", ctrl.removeUser);
+app.get("/api/trip", ctrl.getTrip);
+app.post("/api/trip", ctrl.addTrip);
+app.patch("/api/trip", ctrl.editTrip);
+app.delete("/api/trip", ctrl.removeTrip);
+
+app.get("/api/list", ctrl.getList);
+app.post("/api/list", ctrl.addList);
+app.patch("/api/list", ctrl.editList);
+app.delete("/api/list", ctrl.removeList);
 
 app.get("/api/destination", ctrl.getUser);
 app.post("/api/destination", ctrl.addUser);
