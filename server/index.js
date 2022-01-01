@@ -11,17 +11,19 @@ app.use(cors());
 
 app.get('/api/user', ctrl.getUser);
 app.post('/api/user', ctrl.addUser);
-app.patch('/api/user', ctrl.editUser);
-app.delete('/api/user', ctrl.removeUser);
+app.patch('/api/user/:id', ctrl.editUser);
+app.delete('/api/user/:id', ctrl.removeUser);
 
-app.post('/api/usertrips', ctrl.addUsersTrips);
+app.post('/api/userstrips', ctrl.addUsersTrips);
 
-app.get("/api/trip", ctrl.getTrip);
+app.get("/api/trip/:id", ctrl.getTrip);
+app.get("/api/trip", ctrl.getAllTrips);
 app.post("/api/trip", ctrl.addTrip);
-app.patch("/api/trip", ctrl.editTrip);
-app.delete("/api/trip", ctrl.removeTrip);
+app.patch("/api/trip/:id", ctrl.editTrip);
+app.delete("/api/trip/:id", ctrl.removeTrip);
 
-app.get("/api/list", ctrl.getList);
+app.get("/api/list/:id", ctrl.getList);
+app.get("/api/list", ctrl.getLists);
 app.post("/api/list", ctrl.addList);
 app.patch("/api/list", ctrl.editList);
 app.delete("/api/list", ctrl.removeList);

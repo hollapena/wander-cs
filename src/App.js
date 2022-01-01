@@ -39,8 +39,9 @@ function App() {
       });
   }
   function userLogout(){
-    setAuthenticated(false);
-    navigate("/login");
+    setAuthenticated(false)
+    localStorage.clear()
+    navigate("/");
   }
 
    useEffect(() => {
@@ -64,7 +65,7 @@ function App() {
     localStorage.setItem("userId", JSON.stringify(userId));
     localStorage.setItem("authenticated", JSON.stringify(authenticated));
     
-  });
+  },[authenticated, userEmail, userFirst, userId, userLast, userPass]);
 
   return (
     <div className="App">
