@@ -53,7 +53,7 @@ module.exports = {
   getAllTrips: (req, res) => {
     const { user_id } = req.query;
     sequelize
-      .query(`SELECT trip_name, trip_start, trip_end, first_name, last_name FROM trips t JOIN users_trips ut ON t.trip_id = ut.trip_id JOIN users u ON u.user_id = ut.user_id WHERE u.user_id = '${user_id}';`)
+      .query(`SELECT trip_name, trip_start, trip_end, t.trip_id, first_name, last_name FROM trips t JOIN users_trips ut ON t.trip_id = ut.trip_id JOIN users u ON u.user_id = ut.user_id WHERE u.user_id = '${user_id}';`)
       .then((dbRes) => res.status(200).send(dbRes[0]))
       .catch((err) => console.log(err));
   },

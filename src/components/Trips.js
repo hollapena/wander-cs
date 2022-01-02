@@ -1,10 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import MiniTrip from './MiniTrip';
 
 function Trips() {
 
   const [trips, setTrips] = useState([])
+  const [currentTrip, setCurrentTrip] = useState('');
+
+  const navigate = useNavigate();
 
   const uId = JSON.parse(localStorage.getItem("userId"));
 
@@ -24,14 +28,24 @@ function Trips() {
     getTrips();
   }, []);
 
+  function handleTripClick(e, tripInfo) {
+    e.preventDefault()
+    navigate("/home/trip")
+    localStorage.setItem("current_trip", JSON.stringify(tripInfo))
+  }
+
   return (
     <div className="body"  id="trips">
       <h1>Your Trips</h1>
-      <ul>
+      <section>
         {trips.map((trip) => {
-          return <MiniTrip trip={trip} key={trip.trip_id} />;
+          return (
+            <button id="tripbtn" key={trip.trip_id} value={trip.trip_id} onClick={e => handleTripClick(e, trip)}>
+              <MiniTrip trip={trip} />
+            </button>
+          );
         })}
-      </ul>
+      </section>
     </div>
   );
 }

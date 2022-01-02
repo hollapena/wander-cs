@@ -13,7 +13,7 @@ function UserHome(props) {
       <div className="body" id="home">
         <h1>Welcome, {props.userFirst}!</h1>
         <div>
-          <button className="button">Open Existing Trip</button>
+          <button onClick={(e) => {navigate('trips')}} className="button">Open Existing Trip</button>
         </div>
         <div>
           <Link to="newtrip">

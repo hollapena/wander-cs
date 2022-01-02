@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Weather() {
-  return <div className="body">
+  return <div >
     <h1>Weather will be Displayed here</h1>
   </div>;
 }
