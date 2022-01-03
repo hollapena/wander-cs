@@ -34,17 +34,17 @@ module.exports = {
     const { trip_start, trip_end, trip_name, destination_zip, user_id, title } = req.body;
     sequelize
       .query(
-        `INSERT INTO trips (trip_start, trip_end, trip_name, destination_zip) VALUES ('${trip_start}', '${trip_end}', '${trip_name}', '${destination_zip}') RETURNING trip_id;
+        `INSERT INTO trips (trip_start, trip_end, trip_name, destination_zip, author_id) VALUES ('${trip_start}', '${trip_end}', '${trip_name}', '${destination_zip}', '${user_id}') RETURNING trip_id;
         INSERT INTO list (user_id, title) VALUES ('${user_id}', '${title}') RETURNING list_id;`
       )
       .then((dbRes) => res.status(200).send(dbRes))
       .catch((err) => console.log(err));
   },
   addUsersTrips: (req, res) => {
-    const { trip_id, user_id, list_id } = req.body;
+    const { trip_id, user_id, list_id, organizer } = req.body;
     sequelize
       .query(
-        `INSERT INTO users_trips (user_id, trip_id) VALUES ('${user_id}', '${trip_id}');
+        `INSERT INTO users_trips (user_id, trip_id, organizer) VALUES ('${user_id}', '${trip_id}', '${organizer}');
         INSERT INTO list_trips (trip_id, list_id) VALUES ('${trip_id}', '${list_id}');`
       )
       .then((dbRes) => res.status(200).send(dbRes[0]))
@@ -53,11 +53,19 @@ module.exports = {
   getAllTrips: (req, res) => {
     const { user_id } = req.query;
     sequelize
-      .query(`SELECT trip_name, trip_start, trip_end, t.trip_id, first_name, last_name FROM trips t JOIN users_trips ut ON t.trip_id = ut.trip_id JOIN users u ON u.user_id = ut.user_id WHERE u.user_id = '${user_id}';`)
+      .query(`SELECT trip_name, trip_start, trip_end, t.trip_id, u.user_id, first_name, last_name, user_email, author_id FROM trips t JOIN users_trips ut ON t.trip_id = ut.trip_id JOIN users u ON u.user_id = ut.user_id WHERE u.user_id = '${user_id}';`)
       .then((dbRes) => res.status(200).send(dbRes[0]))
       .catch((err) => console.log(err));
   },
-  getTrip: (req, res) => {},
+  getTripAttendees: (req, res) => {
+    const {id} = req.params;
+    sequelize
+      .query(
+        `SELECT u.user_id, first_name, last_name, user_email, author_id FROM users u JOIN users_trips ut ON u.user_id = ut.user_id JOIN trips t ON ut.trip_id = t.trip_id WHERE ut.trip_id = '${id}';`
+      )
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
+  },
   editTrip: (req, res) => {},
   removeTrip: (req, res) => {},
   addList: (req, res) => {},

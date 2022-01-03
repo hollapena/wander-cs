@@ -16,7 +16,7 @@ app.delete('/api/user/:id', ctrl.removeUser);
 
 app.post('/api/userstrips', ctrl.addUsersTrips);
 
-app.get("/api/trip/:id", ctrl.getTrip);
+app.get("/api/trip/:id", ctrl.getTripAttendees);
 app.get("/api/trip", ctrl.getAllTrips);
 app.post("/api/trip", ctrl.addTrip);
 app.patch("/api/trip/:id", ctrl.editTrip);

@@ -26,7 +26,7 @@ function Trips() {
       }
 
     getTrips();
-  }, []);
+  }, [uId]);
 
   function handleTripClick(e, tripInfo) {
     e.preventDefault()

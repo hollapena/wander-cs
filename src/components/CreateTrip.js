@@ -8,9 +8,7 @@ function CreateTrip(props) {
   const [listType, setListType] = useState("");
   const [tripStartDate, setTripStartDate] = useState("");
   const [tripEndDate, setTripEndDate] = useState("");
-  const [tripDuration, setTripDuration] = useState(0);
   const [templates, setTemplates] = useState([]);
-  const [names, setNames] = useState([]);
 
   const uId = JSON.parse(localStorage.getItem('userId'));
   const navigate = useNavigate();

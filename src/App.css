@@ -142,6 +142,44 @@ label {
   align-items:center;
   margin-top:5vh;
 }
+
+.subcomponent{
+  background-color: #88c6c5;
+  border:1px solid grey;
+  margin: 5px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px gray;
+  margin: 10px;
+
+}
+#tripscreen{
+  display:flex;
+  flex-direction:column;
+  margin-top:3vh;
+}
+#tripheader{
+  display:grid;
+  grid-template-areas: 
+  "title title"
+  "date date"
+  "organizer button";
+  align-items:center;
+}
+#maintriptitle{
+  grid-area:title;
+  height:8vh;
+}
+#triporganizer{
+  grid-area:organizer;
+  margin:8px;
+}
+#emailbtn{
+  grid-area:button;
+}
+#tripdate{
+  grid-area:date;
+  margin:0px;
+}
 .App {
   /* background-color: #7ec4dd; */
   min-height: 100vh;
