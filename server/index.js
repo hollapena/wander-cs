@@ -22,9 +22,9 @@ app.post("/api/trip", ctrl.addTrip);
 app.patch("/api/trip/:id", ctrl.editTrip);
 app.delete("/api/trip/:id", ctrl.removeTrip);
 
-app.get("/api/list/:id", ctrl.getList);
+app.get("/api/list/:id", ctrl.getListItems);
 app.get("/api/list", ctrl.getLists);
-app.post("/api/list", ctrl.addList);
+app.post("/api/list", ctrl.addListItems);
 app.patch("/api/list", ctrl.editList);
 app.delete("/api/list", ctrl.removeList);
 

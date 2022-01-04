@@ -1,5 +1,5 @@
-import React from 'react'
-import moment from 'moment';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 
 function MiniTrip(props) {
 
@@ -10,14 +10,53 @@ function MiniTrip(props) {
 
   const uId = JSON.parse(localStorage.getItem("userId"));
 
+const [currentTrip, setCurrentTrip] = useState([]);
+const [tripAttendees, setTripAttendees] = useState([]);
+const [organizer, setOrganizer] = useState([]);
 
+
+useEffect(() => {
+  const checkForTrip = localStorage.getItem("current_trip");
+  if (checkForTrip) {
+    setCurrentTrip(JSON.parse(localStorage.getItem("current_trip")));
+  }
+  function getTripAttendees() {
+    let trip = JSON.parse(localStorage.getItem("current_trip"));
+    let trip_id = trip.trip_id;
+    axios
+      .get(`http://localhost:3456/api/trip/${trip_id}`)
+      .then((res) => {
+        setTripAttendees(res.data);
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  getTripAttendees();
+}, []);
+
+useEffect(() => {
+  function findOrganizer() {
+    localStorage.setItem("trip_attendees", JSON.stringify(tripAttendees));
+    for (let i = 0; i < tripAttendees.length; i++) {
+      if (tripAttendees[i].user_id === +tripAttendees[i].author_id) {
+        setOrganizer(tripAttendees[i]);
+      }
+    }
+  }
+
+  findOrganizer();
+}, [tripAttendees]);
+     
   return (
     <div id="minitrip">
       <section id="triptitle">
         <h1>{props.trip.trip_name}</h1>
       </section>
       <h2>
-        Organized by: {props.trip.first_name} {props.trip.last_name}
+        Organized by: {organizer.first_name} {organizer.last_name}
       </h2>
       <p>
         {tripStart.toLocaleString("en-US", options)} &nbsp;- &nbsp;

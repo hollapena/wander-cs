@@ -1,46 +1,49 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import MiniTrip from './MiniTrip';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import MiniTrip from "./MiniTrip";
 
 function Trips() {
-
-  const [trips, setTrips] = useState([])
-  const [currentTrip, setCurrentTrip] = useState('');
+  const [trips, setTrips] = useState([]);
 
   const navigate = useNavigate();
 
   const uId = JSON.parse(localStorage.getItem("userId"));
 
   useEffect(() => {
-    function getTrips(){
+    function getTrips() {
       axios
         .get(`http://localhost:3456/api/trip/?user_id=${uId}`)
         .then((res) => {
-             console.log(res.data)
+          console.log(res.data);
           setTrips(res.data);
         })
         .catch((err) => {
           console.log(err);
         });
-      }
+    }
 
     getTrips();
   }, [uId]);
 
   function handleTripClick(e, tripInfo) {
-    e.preventDefault()
-    navigate("/home/trip")
-    localStorage.setItem("current_trip", JSON.stringify(tripInfo))
+    e.preventDefault();
+    navigate("/home/trip");
+    localStorage.setItem("current_trip", JSON.stringify(tripInfo));
   }
 
   return (
-    <div className="body"  id="trips">
+    <div className="body" id="trips">
       <h1>Your Trips</h1>
       <section>
         {trips.map((trip) => {
           return (
-            <button id="tripbtn" key={trip.trip_id} value={trip.trip_id} onClick={e => handleTripClick(e, trip)}>
+            <button
+              id="tripbtn"
+              key={trip.trip_id}
+              value={trip.trip_id}
+              onClick={(e) => handleTripClick(e, trip)}
+            >
               <MiniTrip trip={trip} />
             </button>
           );
@@ -50,4 +53,4 @@ function Trips() {
   );
 }
 
-export default Trips
+export default Trips;

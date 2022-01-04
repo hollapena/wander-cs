@@ -142,7 +142,27 @@ label {
   align-items:center;
   margin-top:5vh;
 }
-
+#packinglist{
+  background-color: #b2e0e0;
+  border:1px solid grey;
+  width: 80vw;
+  border-radius: 5px;
+  box-shadow: 2px 2px 4px gray;
+  margin: 10px;
+}
+#itemquantity{
+  width:5vw;
+}
+.listitem{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  
+}
+#listlabels{
+  display:flex;
+  justify-content:space-between;
+}
 .subcomponent{
   background-color: #88c6c5;
   border:1px solid grey;
@@ -150,7 +170,8 @@ label {
   border-radius: 5px;
   box-shadow: 2px 2px 4px gray;
   margin: 10px;
-
+  display:grid;
+  justify-items:center;
 }
 #tripscreen{
   display:flex;
