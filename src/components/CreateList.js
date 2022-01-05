@@ -6,14 +6,19 @@ function CreateList(props) {
   const [item, setItem] = useState('');
   const [quantity, setQuantity] = useState('');
   const [listItems, setListItems] = useState([]);
+  const [listTitle, setListTitle] = useState([]);
  
   const user_id = props.currentTrip.user_id;
 
 useEffect(() => {
   axios.get(`http://localhost:3456/api/list/${props.list_id}`) 
   .then((res) => {
-    setListItems(res.data)
-    console.log(res.data)
+    let items = [];
+    let title = [];
+    items.push(res.data[0]);
+    title.push(res.data[1].title);
+    setListItems(items);
+    setListTitle(title);
   })
   .catch((err) => {
     console.log(err);
@@ -23,8 +28,9 @@ useEffect(() => {
 function getItems() {
 axios.get(`http://localhost:3456/api/list/${props.list_id}`) 
   .then((res) => {
-    setListItems(res.data)
-    console.log(res.data)
+    let items = [];
+    items.push(res.data[0])
+    setListItems(items)
   })
   .catch((err) => {
     console.log(err);
@@ -33,7 +39,14 @@ axios.get(`http://localhost:3456/api/list/${props.list_id}`)
 
 function deleteItem(e){
 e.preventDefault();
-
+axios
+  .delete(`http://localhost:3456/api/list/${e.target.value}`)
+  .then((res) => {
+    getItems();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 
 }
@@ -70,9 +83,10 @@ function handleItemSubmit(e){
     setQuantity(e.target.value);
   }
 
+
   return (
     <div id="packinglist">
-      <h1>List Title</h1>
+      <h1>{listTitle} List</h1>
       <form onSubmit={handleItemSubmit}>
         <label>Item</label>
         <input
@@ -106,7 +120,7 @@ function handleItemSubmit(e){
               <input onClick={togglePacked} type="checkbox" value={item.ispacked}></input>
               <p>{item.item}</p>
               <p>{item.quantity}</p>
-              <button onClick={deleteItem}>X</button>
+              <button onClick={deleteItem} value={item.item_id}>X</button>
             </div>
           );
         })}

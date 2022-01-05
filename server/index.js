@@ -25,8 +25,10 @@ app.delete("/api/trip/:id", ctrl.removeTrip);
 app.get("/api/list/:id", ctrl.getListItems);
 app.get("/api/list", ctrl.getLists);
 app.post("/api/list", ctrl.addListItems);
+app.delete("/api/items/:id", ctrl.removeFromList);
 app.patch("/api/list", ctrl.editList);
 app.delete("/api/list", ctrl.removeList);
+app.post("/api/newlist", ctrl.addList)
 
 app.get("/api/destination", ctrl.getUser);
 app.post("/api/destination", ctrl.addUser);

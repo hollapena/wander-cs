@@ -8,10 +8,13 @@ function Trips() {
 
   const navigate = useNavigate();
 
-  const uId = JSON.parse(localStorage.getItem("userId"));
+  // const uId = JSON.parse(localStorage.getItem("userId"));
 
   useEffect(() => {
+    const CancelToken = axios.CancelToken;
+    const source = CancelToken.source();
     function getTrips() {
+      const uId = JSON.parse(localStorage.getItem("userId"));
       axios
         .get(`http://localhost:3456/api/trip/?user_id=${uId}`)
         .then((res) => {
@@ -24,7 +27,11 @@ function Trips() {
     }
 
     getTrips();
-  }, [uId]);
+
+    return () =>{
+      source.cancel();
+    }
+  }, []);
 
   function handleTripClick(e, tripInfo) {
     e.preventDefault();

@@ -85,7 +85,8 @@ module.exports = {
     const {id } = req.params;
     sequelize
       .query(
-        `SELECT quantity, item_id, ispacked, user_id, item FROM item WHERE list_id = '${id}';`
+        `SELECT quantity, item_id, ispacked, user_id, item FROM item WHERE list_id = '${id}';
+        SELECT title from list WHERE list_id = '${id}';`
       )
       .then((dbRes) => res.status(200).send(dbRes[0]))
       .catch((err) => console.log(err));
@@ -99,6 +100,17 @@ module.exports = {
   },
   editList: (req, res) => {},
   removeList: (req, res) => {},
-  addToList: (req, res) => {},
-  removeFromList: (req, res) => {},
+   addList:(req,res) => {
+       const {trip_id, title, author_id} = req.body
+       sequelize
+         .query(
+           `INSERT INTO list (title, user_id) VALUES ('${title}', '${user_id}') RETURNING trip_id;
+       INSERT INTO list_trips SELECT list_id VALUES ('${trip_id}', '${list_id}');`
+         )
+         .then((dbRes) => res.status(200).send(dbRes))
+         .catch((err) => console.log(err));
+   },
+  removeFromList: (req, res) => {
+
+  },
 };
