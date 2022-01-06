@@ -15,19 +15,19 @@ const [tripAttendees, setTripAttendees] = useState([]);
 const [organizer, setOrganizer] = useState([]);
 
 
+console.log(props.trip)
 useEffect(() => {
-  const checkForTrip = localStorage.getItem("current_trip");
-  if (checkForTrip) {
-    setCurrentTrip(JSON.parse(localStorage.getItem("current_trip")));
-  }
+ 
+    setCurrentTrip(props.trip);
   function getTripAttendees() {
-    let trip = JSON.parse(localStorage.getItem("current_trip"));
-    let trip_id = trip.trip_id;
+    // let trip = JSON.parse(localStorage.getItem("current_trip"));
+    let trip_id = props.trip.trip_id;
     axios
       .get(`http://localhost:3456/api/trip/${trip_id}`)
       .then((res) => {
+        console.log(res.data)
         setTripAttendees(res.data);
-        
+        // localStorage.setItem("trip_attendees", JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -35,11 +35,13 @@ useEffect(() => {
   }
 
   getTripAttendees();
-}, []);
+}, [props.trip]);
+
+
 
 useEffect(() => {
   function findOrganizer() {
-    localStorage.setItem("trip_attendees", JSON.stringify(tripAttendees));
+    // localStorage.setItem("trip_attendees", JSON.stringify(tripAttendees));
     for (let i = 0; i < tripAttendees.length; i++) {
       if (tripAttendees[i].user_id === +tripAttendees[i].author_id) {
         setOrganizer(tripAttendees[i]);

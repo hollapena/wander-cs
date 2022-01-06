@@ -29,7 +29,7 @@ function CreateTrip(props) {
     
     // const userId = props.userId
       axios
-        .get(`http://localhost:3456/api/list/?user_id='${uId}'`)
+        .get(`http://localhost:3456/api/lists/'${uId}'`)
         .then((res) => {
           setTemplates(res.data[0]);
         })
@@ -147,18 +147,18 @@ function CreateTrip(props) {
           <label>Packing List Type</label>
           <br />
           <br />
-          {templates.map((template) => {if(template.template === true){
+          {templates.map((template) => {
             return(
             <div key={template.title}>
               <label>{template.title}</label>
               <input
                 onClick={handleListChange}
-                type="radio"
+                type="checkbox"
                 value={template.title}
               ></input>
             </div>
             )
-          }})}
+          })}
 
           <label>New List</label>
           <br />

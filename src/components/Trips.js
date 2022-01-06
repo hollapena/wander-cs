@@ -18,7 +18,6 @@ function Trips() {
       axios
         .get(`http://localhost:3456/api/trip/?user_id=${uId}`)
         .then((res) => {
-          console.log(res.data);
           setTrips(res.data);
         })
         .catch((err) => {
@@ -37,7 +36,17 @@ function Trips() {
     e.preventDefault();
     navigate("/home/trip");
     localStorage.setItem("current_trip", JSON.stringify(tripInfo));
-  }
+    
+      let trip_id = tripInfo.trip_id;
+      axios
+        .get(`http://localhost:3456/api/trip/${trip_id}`)
+        .then((res) => {
+          localStorage.setItem("trip_attendees", JSON.stringify(res.data));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
 
   return (
     <div className="body" id="trips">

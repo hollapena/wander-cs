@@ -22,7 +22,7 @@ module.exports = {
       .catch((err) => console.log(err));
   },
   getUser: (req, res) => {
-    const { email, pass } = req.query;
+    const { email} = req.query;
     sequelize
       .query(`SELECT * FROM users WHERE user_email = ${email};`)
       .then((dbRes) => res.status(200).send(dbRes[0]))
@@ -60,6 +60,15 @@ module.exports = {
       .then((dbRes) => res.status(200).send(dbRes[0]))
       .catch((err) => console.log(err));
   },
+  getAllTemplates: (req, res) => {
+    const { id } = req.params;
+    sequelize
+      .query(
+        `SELECT title, list_id FROM list l JOIN list_trips lt ON l.list_id = lt.list_id WHERE l.user_id = '${id}' AND l.template === 'true';`
+      )
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
+  },
   getTripAttendees: (req, res) => {
     const { id } = req.params;
     sequelize
@@ -82,7 +91,7 @@ module.exports = {
       .catch((err) => console.log(err));
   },
   getListItems: (req, res) => {
-    const {id } = req.params;
+    const { id } = req.params;
     sequelize
       .query(
         `SELECT quantity, item_id, ispacked, user_id, item FROM item WHERE list_id = '${id}';
@@ -100,17 +109,49 @@ module.exports = {
   },
   editList: (req, res) => {},
   removeList: (req, res) => {},
-   addList:(req,res) => {
-       const {trip_id, title, author_id} = req.body
-       sequelize
-         .query(
-           `INSERT INTO list (title, user_id) VALUES ('${title}', '${user_id}') RETURNING trip_id;
-       INSERT INTO list_trips SELECT list_id VALUES ('${trip_id}', '${list_id}');`
-         )
-         .then((dbRes) => res.status(200).send(dbRes))
-         .catch((err) => console.log(err));
-   },
-  removeFromList: (req, res) => {
+  addList: (req, res) => {
+    const {title, author_id} = req.body;
+    sequelize
+      .query(
+        `INSERT INTO list (title, user_id) VALUES ('${title}', '${author_id}') RETURNING list_id;`
+      )
+      .then((dbRes) => res.status(200).send(dbRes))
+      .catch((err) => console.log(err));
+  },
+  addListTrips: (req, res) => {
+    const { user_id, trip_id, list_id} = req.body;
+    
+    sequelize
+      .query(
+        `INSERT INTO list_trips (trip_id, list_id) VALUES ('${trip_id}', '${list_id}');
+        INSERT INTO users_lists (user_id, list_id) VALUES('${user_id}', '${list_id}');`
+      )
 
+      .then((dbRes) => res.status(200).send(dbRes))
+      .catch((err) => console.log(err));
+      
+  },
+  addCollaborator: (req, res) => {
+    const {trip_id,list_id, user_id } = req.body;
+    
+    sequelize
+      .query(
+        `INSERT INTO users_lists (user_id, list_id) VALUES('${user_id}', '${list_id}');
+        INSERT INTO users_trips (user_id, trip_id) VALUES ('${user_id}', '${trip_id}');`
+      )
+
+      .then((dbRes) => res.status(200).send(dbRes))
+      .catch((err) => console.log(err));
+  },
+  removeFromList: (req, res) => {
+    const { id } = req.params;
+
+    sequelize
+      .query(
+        `DELETE FROM item WHERE item_id = '${id}';`
+      )
+
+      .then((dbRes) => res.status(200).send(dbRes))
+      .catch((err) => console.log(err));
   },
 };

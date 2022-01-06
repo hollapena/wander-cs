@@ -63,6 +63,7 @@ function Trip() {
         if (trip_attendees[i].list_id) {
           list_ids.push(trip_attendees[i].list_id);
           setListIds(list_ids);
+          
         }
         if (trip_attendees[i].user_id === +trip_attendees[i].author_id) {
           setOrganizer(trip_attendees[i]);
